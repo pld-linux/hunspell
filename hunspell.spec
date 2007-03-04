@@ -20,7 +20,7 @@ compounding or character encoding. Hunspell interfaces: Ispell-like
 terminal interface using Curses library, Ispell pipe interface,
 OpenOffice.org UNO module.
 
-# NOTE: munch,unmunch collide with myspell-devel
+# NOTE: munch,unmunch collide with myspell-tools
 %package tools
 Summary:	hunspell tools
 Group:		Development/Libraries
