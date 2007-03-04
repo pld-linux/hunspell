@@ -122,7 +122,7 @@ diff -urNad hunspell-1.1.4.orig/hunspell.pc.in hunspell-1.1.4/hunspell.pc.in
 +Name: hunspell
 +Description: Hunpell spellchecking library
 +Version: @VERSION@
-+Libs: -L${libdir} -lhunspell-@HUNSPELL_VERSION_MAJOR@.@HUNSPELL_VERSION_MINOR@
++Libs: -L${libdir} -lhunspell
 +Cflags: -I${includedir}/hunspell
 
  	  	 
