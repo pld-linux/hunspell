@@ -1,0 +1,24 @@
+--- hunspell-1.1.4/src/tools/hunspell.cxx.orig	2006-11-29 12:09:52.000000000 +0000
++++ hunspell-1.1.4/src/tools/hunspell.cxx	2006-11-29 12:24:36.000000000 +0000
+@@ -1105,7 +1105,20 @@
+         if (printgood && (filter_mode == NORMAL)) filter_mode = BADWORD;
+ 
+ 	if (! dicname) {
+-		if (! (dicname=getenv("DICTIONARY"))) dicname = mystrdup("default");
++		if (! (dicname=getenv("DICTIONARY"))) { 
++		        if (! (dicname=getenv("LANG"))) { 
++                                dicname = mystrdup("default");
++                        }
++                        else {
++			        int len = strlen(dicname);
++			        for (int i = 0; i < len; ++i) {
++			            if ((dicname[i] == '_') && (i+3 < len)) {
++			                    dicname[i+3] = 0;
++			                    break;
++			            }
++                                }
++                        }
++                }
+ 	}
+ 
+ 	if (!privdicname) privdicname = mystrdup(getenv("WORDLIST"));

@@ -1,0 +1,87 @@
+diff -ru hunspell-1.1.4.orig/src/hunspell/hunspell.cxx hunspell-1.1.4/src/hunspell/hunspell.cxx
+--- hunspell-1.1.4.orig/src/hunspell/hunspell.cxx	2006-12-14 10:48:48.000000000 +0000
++++ hunspell-1.1.4/src/hunspell/hunspell.cxx	2006-12-15 09:45:10.000000000 +0000
+@@ -6,6 +6,7 @@
+ #include <cstdio>
+ 
+ #include "hunspell.hxx"
++#include "hunspell.h"
+ 
+ #ifndef W32
+ using namespace std;
+@@ -1642,3 +1643,27 @@
+   return n;
+ }
+ 
++Hunhandle *Hunspell_create(const char * affpath, const char * dpath)
++{
++	return (Hunhandle*)(new Hunspell(affpath, dpath));
++}
++
++void Hunspell_destroy(Hunhandle *pHunspell)
++{
++	delete (Hunspell*)(pHunspell);
++}
++
++int Hunspell_spell(Hunhandle *pHunspell, const char *word)
++{
++	return ((Hunspell*)pHunspell)->spell(word);
++}
++
++char *Hunspell_get_dic_encoding(Hunhandle *pHunspell)
++{
++	return ((Hunspell*)pHunspell)->get_dic_encoding();
++}
++
++int Hunspell_suggest(Hunhandle *pHunspell, char*** slst, const char * word)
++{
++	return ((Hunspell*)pHunspell)->suggest(slst, word);
++}
+diff -ru hunspell-1.1.4.orig/src/hunspell/Makefile.am hunspell-1.1.4/src/hunspell/Makefile.am
+--- hunspell-1.1.4.orig/src/hunspell/Makefile.am	2006-12-14 10:48:48.000000000 +0000
++++ hunspell-1.1.4/src/hunspell/Makefile.am	2006-12-14 16:28:47.000000000 +0000
+@@ -7,7 +7,7 @@
+ 	             suggestmgr.cxx license.myspell license.hunspell
+ 
+ libhunspell_include_HEADERS=affentry.hxx htypes.hxx affixmgr.hxx \
+-	        csutil.hxx hunspell.hxx atypes.hxx dictmgr.hxx \
++	        csutil.hxx hunspell.hxx hunspell.h atypes.hxx dictmgr.hxx \
+ 		suggestmgr.hxx baseaffix.hxx hashmgr.hxx langnum.hxx
+ 
+ EXTRA_DIST=hunspell.dsp makefile.mk README
+--- /dev/null	2006-12-11 08:20:12.802001576 +0000
++++ hunspell-1.1.4/src/hunspell/hunspell.h	2006-12-15 09:44:36.000000000 +0000
+@@ -0,0 +1,33 @@
++#ifndef _MYSPELLMGR_H_
++#define _MYSPELLMGR_H_
++
++#ifdef __cplusplus
++extern "C" {
++#endif
++
++typedef struct Hunhandle Hunhandle;
++
++Hunhandle *Hunspell_create(const char * affpath, const char * dpath);
++void Hunspell_destroy(Hunhandle *pHunspell);
++
++/* spell(word) - spellcheck word
++ * output: 0 = bad word, not 0 = good word
++ */
++int Hunspell_spell(Hunhandle *pHunspell, const char *);
++
++char *Hunspell_get_dic_encoding(Hunhandle *pHunspell);
++
++/* suggest(suggestions, word) - search suggestions
++ * input: pointer to an array of strings pointer and the (bad) word
++ *   array of strings pointer (here *slst) may not be initialized
++ * output: number of suggestions in string array, and suggestions in
++ *   a newly allocated array of strings (*slts will be NULL when number
++ *   of suggestion equals 0.)
++ */
++int Hunspell_suggest(Hunhandle *pHunspell, char*** slst, const char * word);
++
++#ifdef __cplusplus
++}
++#endif
++
++#endif

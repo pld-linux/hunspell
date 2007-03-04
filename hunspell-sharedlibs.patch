@@ -1,0 +1,128 @@
+--- hunspell-1.1.4.orig/configure.ac	2006-10-25 10:34:32.000000000 +0100
++++ hunspell-1.1.4/configure.ac	2006-10-25 10:41:33.000000000 +0100
+@@ -23,7 +23,7 @@
+ # Checks for programs.
+ AC_PROG_CXX
+ AC_PROG_CC
+-AC_PROG_RANLIB
++AC_PROG_LIBTOOL
+ 
+ # Checks for libraries.
+ 
+--- hunspell-1.1.4.orig/src/hunspell/Makefile.am	2006-10-25 10:34:32.000000000 +0100
++++ hunspell-1.1.4/src/hunspell/Makefile.am	2006-10-25 10:40:44.000000000 +0100
+@@ -1,9 +1,12 @@
+-lib_LIBRARIES = libhunspell.a
+-libhunspell_a_SOURCES=affentry.cxx affixmgr.cxx csutil.cxx \
++version_info = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
++
++lib_LTLIBRARIES = libhunspell.la
++libhunspell_includedir = $(includedir)/hunspell
++libhunspell_la_SOURCES=affentry.cxx affixmgr.cxx csutil.cxx \
+ 		     dictmgr.cxx hashmgr.cxx hunspell.cxx \
+-	             suggestmgr.cxx utf_info.cxx license.myspell license.hunspell
++	             suggestmgr.cxx license.myspell license.hunspell
+ 
+-include_HEADERS=affentry.hxx htypes.hxx affixmgr.hxx \
++libhunspell_include_HEADERS=affentry.hxx htypes.hxx affixmgr.hxx \
+ 	        csutil.hxx hunspell.hxx atypes.hxx dictmgr.hxx \
+ 		suggestmgr.hxx baseaffix.hxx hashmgr.hxx langnum.hxx
+ 
+--- hunspell-1.1.4.orig/src/tools/Makefile.am	2006-10-25 10:34:32.000000000 +0100
++++ hunspell-1.1.4/src/tools/Makefile.am	2006-10-25 11:43:36.000000000 +0100
+@@ -4,21 +4,20 @@
+ 
+ munch_SOURCES=munch.c
+ unmunch_SOURCES=unmunch.c
+-include_HEADERS=munch.h unmunch.h
+ 
+ example_SOURCES=example.cxx
+-example_LDADD = ../hunspell/libhunspell.a
++example_LDADD = ../hunspell/libhunspell.la
+ 
+ hunspell_SOURCES=hunspell.cxx
+-hunspell_LDADD = @LIBINTL@ ../hunspell/libhunspell.a \
++hunspell_LDADD = @LIBINTL@ ../hunspell/libhunspell.la \
+ 	../parsers/libparsers.a @CURSESLIB@ @READLINELIB@
+ 
+ hunmorph_SOURCES=hunmorph.cxx
+-hunmorph_LDADD = ../hunspell/libhunspell.a
++hunmorph_LDADD = ../hunspell/libhunspell.la
+ #hunmorph_INCLUDES=-I${top_srcdir}/src/hunspell
+ 
+ hunstem_SOURCES=hunstem.cxx
+-hunstem_LDADD = ../hunspell/libhunspell.a
++hunstem_LDADD = ../hunspell/libhunspell.la
+ #hunstem_INCLUDES=-I${top_srcdir}/src/hunspell
+ 
+ EXTRA_DIST=makealias
+--- hunspell-1.1.4.orig/src/parsers/Makefile.am	2006-10-25 10:34:32.000000000 +0100
++++ hunspell-1.1.4/src/parsers/Makefile.am	2006-10-25 11:48:15.000000000 +0100
+@@ -3,15 +3,8 @@
+ 		      latexparser.cxx  manparser.cxx \
+ 		      textparser.cxx 
+ 
+-#include_hunspelldir
+-include_HEADERS = firstparser.hxx \
+-		  htmlparser.hxx \
+-		  latexparser.hxx \
+-		  manparser.hxx \
+-		  textparser.hxx
+-
+ noinst_PROGRAMS=testparser
+ testparser_SOURCES=firstparser.cxx firstparser.hxx htmlparser.cxx htmlparser.hxx latexparser.cxx latexparser.hxx manparser.cxx manparser.hxx testparser.cxx textparser.cxx textparser.hxx
+ 
+ # need mystrdup()
+-LDADD = ../hunspell/libhunspell.a
++LDADD = ../hunspell/libhunspell.la
+diff -urNad hunspell-1.1.4.orig/Makefile.am hunspell-1.1.4/Makefile.am
+--- hunspell-1.1.4.orig/Makefile.am	2007-01-18 14:46:45.000000000 +0100
++++ hunspell-1.1.4/Makefile.am	2007-01-18 14:46:51.000000000 +0100
+@@ -2,5 +2,8 @@
+ 
+ SUBDIRS= intl po src man m4 tests
+ 
++pkgconfdir = $(libdir)/pkgconfig
++pkgconf_DATA = hunspell.pc
++
+ EXTRA_DIST = BUGS README.myspell AUTHORS.myspell license.myspell license.hunspell \
+-        ChangeLog.O COPYING.MPL COPYING.LGPL
++        ChangeLog.O COPYING.MPL COPYING.LGPL hunspell.pc.in
+diff -urNad hunspell-1.1.4.orig/configure.ac hunspell-1.1.4/configure.ac
+--- hunspell-1.1.4.orig/configure.ac	2007-01-18 14:46:50.000000000 +0100
++++ hunspell-1.1.4/configure.ac	2007-01-18 14:49:06.000000000 +0100
+@@ -11,6 +11,10 @@
+ AC_SUBST(XFAILED)
+ 
+ AM_INIT_AUTOMAKE(hunspell, 1.1.4)
++HUNSPELL_VERSION_MAJOR=`echo $VERSION | cut -d"." -f1`
++HUNSPELL_VERSION_MINOR=`echo $VERSION | cut -d"." -f2`
++AC_SUBST(HUNSPELL_VERSION_MAJOR)
++AC_SUBST(HUNSPELL_VERSION_MINOR)
+ 
+ AC_CONFIG_SRCDIR([config.h.in])
+ AC_CONFIG_HEADER([config.h])
+@@ -79,6 +83,7 @@
+ AC_SUBST(READLINELIB)
+ 
+ AC_CONFIG_FILES([Makefile
++		 hunspell.pc
+                  man/Makefile
+                  man/hu/Makefile
+                  intl/Makefile
+diff -urNad hunspell-1.1.4.orig/hunspell.pc.in hunspell-1.1.4/hunspell.pc.in
+--- hunspell-1.1.4.orig/hunspell.pc.in	1970-01-01 01:00:00.000000000 +0100
++++ hunspell-1.1.4/hunspell.pc.in	2007-01-18 14:50:45.000000000 +0100
+@@ -0,0 +1,10 @@
++prefix=@prefix@
++exec_prefix=${prefix}
++libdir=${prefix}/lib
++includedir=${prefix}/include
++
++Name: hunspell
++Description: Hunpell spellchecking library
++Version: @VERSION@
++Libs: -L${libdir} -lhunspell-@HUNSPELL_VERSION_MAJOR@.@HUNSPELL_VERSION_MINOR@
++Cflags: -I${includedir}/hunspell
+
+ 	  	 
