@@ -1,7 +1,7 @@
 Summary:	Hunspell is a spell checker and morphological analyzer library
 Name:		hunspell
 Version:	1.1.4
-Release:	0.3
+Release:	1
 Source0:	http://dl.sourceforge.net/hunspell/%{name}-%{version}.tar.gz
 # Source0-md5:	4cf2dfb89dd58392ad5a1183c69eb628
 License:	LGPL
