@@ -41,7 +41,7 @@ Requires:	%{name} = %{version}-%{release}
 %description tools
 This package contains munch and unmunch programs.
 
-%description tools -l pl.UTF-u
+%description tools -l pl.UTF-8
 Ten pakiet zawiera programy munch i unmunch.
 
 %package devel
