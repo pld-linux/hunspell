@@ -2,7 +2,7 @@ Summary:	Hunspell - a spell checker and morphological analyzer library
 Summary(pl.UTF-8):	hunspell - biblioteka do sprawdzania pisowni i analizy morfologicznej
 Name:		hunspell
 Version:	1.1.12
-Release:	1
+Release:	2
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/hunspell/%{name}-%{version}-2.tar.gz
@@ -12,6 +12,7 @@ BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
+Provides:	libhunspell.so.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -83,6 +84,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+ln -s $(basename $RPM_BUILD_ROOT%{_libdir}/libhunspell-1.1.so.*.*.*) $RPM_BUILD_ROOT%{_libdir}/libhunspell.so.0
 %find_lang %{name}
 
 rm -f $RPM_BUILD_ROOT%{_bindir}/example
@@ -98,6 +100,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc README README.myspell AUTHORS AUTHORS.myspell license.hunspell license.myspell THANKS
 %attr(755,root,root) %{_bindir}/hunspell
 %attr(755,root,root) %{_libdir}/libhunspell-1.1.so.*.*.*
+%{_libdir}/libhunspell.so.0
 %{_mandir}/man1/hunspell.1*
 %{_mandir}/man4/hunspell.4*
 %lang(hu) %{_mandir}/hu/man1/hunspell.1*
