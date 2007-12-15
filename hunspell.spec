@@ -12,7 +12,11 @@ BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
+%ifarch %{x8664} ia64 ppc64 s390x sparc64
+Provides:	libhunspell.so.0()(64bit)
+%else
 Provides:	libhunspell.so.0
+%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -100,7 +104,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc README README.myspell AUTHORS AUTHORS.myspell license.hunspell license.myspell THANKS
 %attr(755,root,root) %{_bindir}/hunspell
 %attr(755,root,root) %{_libdir}/libhunspell-1.1.so.*.*.*
-%{_libdir}/libhunspell.so.0
+%attr(755,root,root) %{_libdir}/libhunspell.so.0
 %{_mandir}/man1/hunspell.1*
 %{_mandir}/man4/hunspell.4*
 %lang(hu) %{_mandir}/hu/man1/hunspell.1*
