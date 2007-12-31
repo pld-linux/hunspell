@@ -1,12 +1,12 @@
 Summary:	Hunspell - a spell checker and morphological analyzer library
 Summary(pl.UTF-8):	hunspell - biblioteka do sprawdzania pisowni i analizy morfologicznej
 Name:		hunspell
-Version:	1.1.12
-Release:	3
+Version:	1.2.1
+Release:	0.1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/hunspell/%{name}-%{version}-2.tar.gz
-# Source0-md5:	f4bb481a318eb388e07773f22be853d5
+Source0:	http://dl.sourceforge.net/hunspell/%{name}-%{version}.tar.gz
+# Source0-md5:	c504f9c2065f697e586593992dd74dae
 URL:		http://hunspell.sourceforge.net/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
@@ -80,7 +80,11 @@ Statyczna biblioteka hunspella.
 %{__aclocal} -I m4
 %{__autoconf}
 %{__automake}
-%configure
+CPPFLAGS="-I/usr/include/ncurses" 
+%configure \
+	--with-ui \
+	--with-readline
+
 %{__make}
 
 %install
@@ -103,8 +107,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README README.myspell AUTHORS AUTHORS.myspell license.hunspell license.myspell THANKS
 %attr(755,root,root) %{_bindir}/hunspell
-%attr(755,root,root) %{_libdir}/libhunspell-1.1.so.*.*.*
-%attr(755,root,root) %{_libdir}/libhunspell.so.0
+#%attr(755,root,root) %{_libdir}/libhunspell-1.1.so.*.*.*
+%attr(755,root,root) %{_libdir}/libhunspell.so.1.0.1
 %{_mandir}/man1/hunspell.1*
 %{_mandir}/man4/hunspell.4*
 %lang(hu) %{_mandir}/hu/man1/hunspell.1*
@@ -112,17 +116,21 @@ rm -rf $RPM_BUILD_ROOT
 
 %files tools
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/analyze
+%attr(755,root,root) %{_bindir}/chmorph
 %attr(755,root,root) %{_bindir}/munch
 %attr(755,root,root) %{_bindir}/unmunch
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libhunspell-1.1.so
-%{_libdir}/libhunspell-1.1.la
+#%attr(755,root,root) %{_libdir}/libhunspell-1.1.so
+%{_libdir}/libhunspell.la
 %{_libdir}/libparsers.a
 %{_includedir}/%{name}
+%{_includedir}/munch.h
+%{_includedir}/unmunch.h
 %{_pkgconfigdir}/hunspell.pc
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libhunspell-1.1.a
+%{_libdir}/libhunspell.a
