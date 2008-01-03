@@ -13,6 +13,8 @@ BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
+BuildRequires:	ncurses-devel >= 5.0
+BuildRequires:	readline-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
