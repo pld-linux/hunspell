@@ -1,0 +1,29 @@
+--- hunspell-1.2.1/configure.ac.orig	2007-11-01 19:23:22.000000000 +0100
++++ hunspell-1.2.1/configure.ac	2008-01-03 18:23:21.059100740 +0100
+@@ -60,13 +60,13 @@
+ 
+ CURSESLIB=""
+ AC_ARG_WITH(ui,[  --with-ui               support Curses user interface], [
+-   AC_CHECK_LIB(ncursesw,tparm,CURSESLIB=-lncursesw,
+-     AC_CHECK_LIB(curses,tparm,CURSESLIB=-lcurses,
+-       AC_CHECK_LIB(ncurses,tparm,CURSESLIB=-lncurses)))
++   AC_CHECK_LIB(ncursesw,printw,CURSESLIB="-lncursesw -ltinfow",
++     AC_CHECK_LIB(ncurses,printw,CURSESLIB="-lncurses -ltinfo",
++       AC_CHECK_LIB(curses,printw,CURSESLIB=-lcurses)))
+    if test "$CURSESLIB" != "" ; then
+      echo Compiling with curses user interface.
+      AC_DEFINE(HAVE_CURSES_H,1,"Define if you have the <curses.h> header")
+-     if test "$CURSESLIB" != "-lncursesw" ; then
++     if test "$CURSESLIB" != "-lncursesw -ltinfow" ; then
+        echo "No Unicode support on interactive console. (Install Ncursesw library.)"
+      else
+        AC_DEFINE(HAVE_NCURSESW_H,1,"Define if you have the <ncursesw/curses.h> header")       
+@@ -78,7 +78,7 @@
+ 
+ rl=n
+ AC_ARG_WITH(readline,[  --with-readline         support fancy command input editing], [
+-   AC_CHECK_LIB(curses,tparm,TERMLIB=-lncurses,
++   AC_CHECK_LIB(tinfo,tparm,TERMLIB=-ltinfo,
+      AC_CHECK_LIB(termcap,tgetent,TERMLIB=-ltermcap))
+    LDSAVE=$LDFLAGS
+    LDFLAGS="$LDFLAGS $TERMLIB"
