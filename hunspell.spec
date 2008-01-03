@@ -2,21 +2,17 @@ Summary:	Hunspell - a spell checker and morphological analyzer library
 Summary(pl.UTF-8):	hunspell - biblioteka do sprawdzania pisowni i analizy morfologicznej
 Name:		hunspell
 Version:	1.2.1
-Release:	0.1
+Release:	1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/hunspell/%{name}-%{version}.tar.gz
 # Source0-md5:	c504f9c2065f697e586593992dd74dae
+Patch0:		%{name}-as-needed.patch
 URL:		http://hunspell.sourceforge.net/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
-%ifarch %{x8664} ia64 ppc64 s390x sparc64
-Provides:	libhunspell.so.0()(64bit)
-%else
-Provides:	libhunspell.so.0
-%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -74,6 +70,7 @@ Statyczna biblioteka hunspella.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -89,10 +86,10 @@ CPPFLAGS="-I/usr/include/ncurses"
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-ln -s $(basename $RPM_BUILD_ROOT%{_libdir}/libhunspell-1.1.so.*.*.*) $RPM_BUILD_ROOT%{_libdir}/libhunspell.so.0
 %find_lang %{name}
 
 rm -f $RPM_BUILD_ROOT%{_bindir}/example
@@ -105,10 +102,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc README README.myspell AUTHORS AUTHORS.myspell license.hunspell license.myspell THANKS
+%doc README README.myspell AUTHORS AUTHORS.myspell COPYING THANKS license.hunspell license.myspell
 %attr(755,root,root) %{_bindir}/hunspell
-#%attr(755,root,root) %{_libdir}/libhunspell-1.1.so.*.*.*
-%attr(755,root,root) %{_libdir}/libhunspell.so.1.0.1
+%attr(755,root,root) %{_libdir}/libhunspell.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libhunspell.so.1
 %{_mandir}/man1/hunspell.1*
 %{_mandir}/man4/hunspell.4*
 %lang(hu) %{_mandir}/hu/man1/hunspell.1*
@@ -123,7 +120,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-#%attr(755,root,root) %{_libdir}/libhunspell-1.1.so
+%attr(755,root,root) %{_libdir}/libhunspell.so
 %{_libdir}/libhunspell.la
 %{_libdir}/libparsers.a
 %{_includedir}/%{name}
