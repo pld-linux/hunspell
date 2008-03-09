@@ -8,6 +8,7 @@ Group:		Libraries
 Source0:	http://dl.sourceforge.net/hunspell/%{name}-%{version}b.tar.gz
 # Source0-md5:	46aecfa635868f2618b204968f4bebd1
 Patch0:		%{name}-as-needed.patch
+Patch1:		%{name}-lt.patch
 URL:		http://hunspell.sourceforge.net/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
@@ -73,8 +74,10 @@ Statyczna biblioteka hunspella.
 %prep
 %setup -q -n %{name}-%{version}b
 %patch0 -p1
+%patch1 -p1
 
 %build
+%{__gettextize}
 %{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
