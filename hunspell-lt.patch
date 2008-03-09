@@ -1,0 +1,14 @@
+--- hunspell-1.2.2b/configure.ac.orig	2008-03-09 16:53:57.628487000 +0100
++++ hunspell-1.2.2b/configure.ac	2008-03-09 17:05:22.767525559 +0100
+@@ -15,11 +15,6 @@
+ AC_SUBST(HUNSPELL_VERSION_MAJOR)
+ AC_SUBST(HUNSPELL_VERSION_MINOR)
+ 
+-# library version
+-LT_CURRENT=1
+-LT_REVISION=0
+-LT_AGE=0
+-
+ AC_CONFIG_SRCDIR([config.h.in])
+ AC_CONFIG_HEADER([config.h])
+ 
