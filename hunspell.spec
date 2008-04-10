@@ -1,8 +1,9 @@
+%define		rel	2
 Summary:	Hunspell - a spell checker and morphological analyzer library
 Summary(pl.UTF-8):	hunspell - biblioteka do sprawdzania pisowni i analizy morfologicznej
 Name:		hunspell
 Version:	1.2.2
-Release:	0.b.1
+Release:	0.b.%{rel}
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/hunspell/%{name}-%{version}b.tar.gz
@@ -16,6 +17,11 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	readline-devel
+%ifarch %{x8664} ia64 ppc64 s390x sparc64
+Provides:	libhunspell.so.1()(64bit)
+%else
+Provides:	libhunspell.so.1
+%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -82,7 +88,7 @@ Statyczna biblioteka hunspella.
 %{__aclocal} -I m4
 %{__autoconf}
 %{__automake}
-CPPFLAGS="-I/usr/include/ncurses" 
+CPPFLAGS="-I/usr/include/ncurses"
 %configure \
 	--with-ui \
 	--with-readline
@@ -95,6 +101,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+ln -s $(basename $RPM_BUILD_ROOT%{_libdir}/libhunspell-1.2.so.*.*.*) $RPM_BUILD_ROOT%{_libdir}/libhunspell.so.1
 %find_lang %{name}
 
 rm -f $RPM_BUILD_ROOT%{_bindir}/example
@@ -113,6 +120,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/hzip
 %attr(755,root,root) %{_libdir}/libhunspell-*.*.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libhunspell-*.*.so.0
+%attr(755,root,root) %{_libdir}/libhunspell.so.1
 %{_mandir}/man1/hunspell.1*
 %{_mandir}/man4/hunspell.4*
 %lang(hu) %{_mandir}/hu/man1/hunspell.1*
