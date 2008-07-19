@@ -1,15 +1,13 @@
-%define		rel	2
 Summary:	Hunspell - a spell checker and morphological analyzer library
 Summary(pl.UTF-8):	hunspell - biblioteka do sprawdzania pisowni i analizy morfologicznej
 Name:		hunspell
-Version:	1.2.2
-Release:	0.b.%{rel}
+Version:	1.2.6
+Release:	1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/hunspell/%{name}-%{version}b.tar.gz
-# Source0-md5:	46aecfa635868f2618b204968f4bebd1
+Source0:	http://dl.sourceforge.net/hunspell/%{name}-%{version}.tar.gz
+# Source0-md5:	57ee841a0c4f97ad64ef12136413398b
 Patch0:		%{name}-as-needed.patch
-Patch1:		%{name}-lt.patch
 URL:		http://hunspell.sourceforge.net/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
@@ -78,9 +76,8 @@ Static hunspell library.
 Statyczna biblioteka hunspella.
 
 %prep
-%setup -q -n %{name}-%{version}b
+%setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__gettextize}
@@ -121,6 +118,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libhunspell-*.*.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libhunspell-*.*.so.0
 %attr(755,root,root) %{_libdir}/libhunspell.so.1
+%{_mandir}/man1/hunzip.1*
+%{_mandir}/man1/hzip.1*
 %{_mandir}/man1/hunspell.1*
 %{_mandir}/man4/hunspell.4*
 %lang(hu) %{_mandir}/hu/man1/hunspell.1*
@@ -142,6 +141,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/munch.h
 %{_includedir}/unmunch.h
 %{_pkgconfigdir}/hunspell.pc
+%{_mandir}/man3/hunspell.3*
 
 %files static
 %defattr(644,root,root,755)
