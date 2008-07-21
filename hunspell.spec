@@ -111,7 +111,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc README README.myspell AUTHORS AUTHORS.myspell COPYING THANKS license.hunspell license.myspell
+%doc AUTHORS AUTHORS.myspell COPYING ChangeLog NEWS README README.myspell THANKS license.hunspell license.myspell
 %attr(755,root,root) %{_bindir}/hunspell
 %attr(755,root,root) %{_bindir}/hunzip
 %attr(755,root,root) %{_bindir}/hzip
