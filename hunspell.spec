@@ -1,12 +1,12 @@
 Summary:	Hunspell - a spell checker and morphological analyzer library
 Summary(pl.UTF-8):	hunspell - biblioteka do sprawdzania pisowni i analizy morfologicznej
 Name:		hunspell
-Version:	1.2.7
+Version:	1.2.8
 Release:	1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/hunspell/%{name}-%{version}.tar.gz
-# Source0-md5:	9a4f345c3cfaeb8e6306285488a3127a
+# Source0-md5:	1177af54a09e320d2c24015f29c3a93e
 Patch0:		%{name}-as-needed.patch
 URL:		http://hunspell.sourceforge.net/
 BuildRequires:	autoconf >= 2.59
