@@ -1,4 +1,5 @@
 Summary:	Hunspell - a spell checker and morphological analyzer library
+Summary(hu.UTF-8):	Hunspell egy helyesírás-ellenőrző és morfológiai elemző könyvtár és program
 Summary(pl.UTF-8):	hunspell - biblioteka do sprawdzania pisowni i analizy morfologicznej
 Name:		hunspell
 Version:	1.2.8
@@ -23,6 +24,13 @@ Provides:	libhunspell.so.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
+Hunspell is a spell checker and morphological analyzer library and
+program designed for languages with rich morphology and complex word
+compounding or character encoding. Hunspell interfaces: Ispell-like
+terminal interface using Curses library, Ispell pipe interface,
+OpenOffice.org UNO module.
+
+%description -l hu.UTF-8
 Hunspell is a spell checker and morphological analyzer library and
 program designed for languages with rich morphology and complex word
 compounding or character encoding. Hunspell interfaces: Ispell-like
