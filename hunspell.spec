@@ -55,6 +55,9 @@ Requires:	%{name} = %{version}-%{release}
 %description tools
 This package contains munch and unmunch programs.
 
+%description tools -l hu.UTF-8
+Ez a csomag a munch és unmunch programokat tartalmazza.
+
 %description tools -l pl.UTF-8
 Ten pakiet zawiera programy munch i unmunch.
 
@@ -68,6 +71,9 @@ Requires:	libstdc++-devel
 %description devel
 Includes and definitions for developing with hunspell.
 
+%description devel -l hu.UTF-8
+Header-fájlok és definíciók hunspell-lel való fejlesztéshez.
+
 %description devel -l pl.UTF-8
 Pliki nagłówkowe i definicje do programowania z użyciem hunspella.
 
@@ -79,6 +85,9 @@ Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static hunspell library.
+
+%description static -l hu.UTF-8
+Hunspell statikus könyvtár.
 
 %description static -l pl.UTF-8
 Statyczna biblioteka hunspella.
