@@ -1,3 +1,6 @@
+# TODO:
+# $ LC_ALL=C hunspell -d hu_HU foo
+# Hunspell has been compiled without Ncurses user interface.
 Summary:	Hunspell - a spell checker and morphological analyzer library
 Summary(hu.UTF-8):	Hunspell egy helyesírás-ellenőrző és morfológiai elemző könyvtár és program
 Summary(pl.UTF-8):	hunspell - biblioteka do sprawdzania pisowni i analizy morfologicznej
