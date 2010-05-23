@@ -5,12 +5,12 @@ Summary:	Hunspell - a spell checker and morphological analyzer library
 Summary(hu.UTF-8):	Hunspell egy helyesírás-ellenőrző és morfológiai elemző könyvtár és program
 Summary(pl.UTF-8):	hunspell - biblioteka do sprawdzania pisowni i analizy morfologicznej
 Name:		hunspell
-Version:	1.2.9
+Version:	1.2.11
 Release:	1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/hunspell/%{name}-%{version}.tar.gz
-# Source0-md5:	68dd2e8253d9a7930e9fd50e2d7220d0
+Source0:	http://downloads.sourceforge.net/hunspell/%{name}-%{version}.tar.gz
+# Source0-md5:	8f57cdc4db091d69e1f682ed4d8ab282
 Patch0:		%{name}-as-needed.patch
 URL:		http://hunspell.sourceforge.net/
 BuildRequires:	autoconf >= 2.59
@@ -57,13 +57,11 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description tools
-This package contains munch and unmunch programs.
-
-%description tools -l hu.UTF-8
-Ez a csomag a munch és unmunch programokat tartalmazza.
+This package contains hunspell utilities, including munch and unmunch.
 
 %description tools -l pl.UTF-8
-Ten pakiet zawiera programy munch i unmunch.
+Ten pakiet zawiera narzędzia dla hunspella, w tym programy munch i
+unmunch.
 
 %package devel
 Summary:	Files for developing with hunspell
@@ -136,8 +134,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/hunspell
 %attr(755,root,root) %{_bindir}/hunzip
 %attr(755,root,root) %{_bindir}/hzip
-%attr(755,root,root) %{_libdir}/libhunspell-*.*.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libhunspell-*.*.so.0
+%attr(755,root,root) %{_libdir}/libhunspell-1.2.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libhunspell-1.2.so.0
 %attr(755,root,root) %{_libdir}/libhunspell.so.1
 %{_mandir}/man1/hunzip.1*
 %{_mandir}/man1/hzip.1*
@@ -148,20 +146,25 @@ rm -rf $RPM_BUILD_ROOT
 
 %files tools
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/affixcompress
 %attr(755,root,root) %{_bindir}/analyze
 %attr(755,root,root) %{_bindir}/chmorph
+%attr(755,root,root) %{_bindir}/ispellaff2myspell
+%attr(755,root,root) %{_bindir}/makealias
 %attr(755,root,root) %{_bindir}/munch
 %attr(755,root,root) %{_bindir}/unmunch
+%attr(755,root,root) %{_bindir}/wordforms
+%attr(755,root,root) %{_bindir}/wordlist2hunspell
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libhunspell-*.*.so
-%{_libdir}/libhunspell-*.*.la
+%attr(755,root,root) %{_libdir}/libhunspell-1.2.so
+%{_libdir}/libhunspell-1.2.la
 %{_libdir}/libparsers.a
-%{_includedir}/%{name}
+%{_includedir}/hunspell
 %{_pkgconfigdir}/hunspell.pc
 %{_mandir}/man3/hunspell.3*
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libhunspell-*.*.a
+%{_libdir}/libhunspell-1.2.a
