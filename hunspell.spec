@@ -5,12 +5,12 @@ Summary:	Hunspell - a spell checker and morphological analyzer library
 Summary(hu.UTF-8):	Hunspell egy helyesírás-ellenőrző és morfológiai elemző könyvtár és program
 Summary(pl.UTF-8):	hunspell - biblioteka do sprawdzania pisowni i analizy morfologicznej
 Name:		hunspell
-Version:	1.3.1
+Version:	1.3.2
 Release:	1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/hunspell/%{name}-%{version}.tar.gz
-# Source0-md5:	9ed97fce60a9a65852402248a6659492
+# Source0-md5:	3121aaf3e13e5d88dfff13fb4a5f1ab8
 Patch0:		%{name}-as-needed.patch
 URL:		http://hunspell.sourceforge.net/
 BuildRequires:	autoconf >= 2.59
@@ -117,7 +117,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-ln -sf $(basename $RPM_BUILD_ROOT%{_libdir}/libhunspell-1.2.so.*.*.*) $RPM_BUILD_ROOT%{_libdir}/libhunspell.so.1
+ln -sf $(basename $RPM_BUILD_ROOT%{_libdir}/libhunspell-1.3.so.*.*.*) $RPM_BUILD_ROOT%{_libdir}/libhunspell.so.1
 %find_lang %{name}
 
 %clean
@@ -132,8 +132,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/hunspell
 %attr(755,root,root) %{_bindir}/hunzip
 %attr(755,root,root) %{_bindir}/hzip
-%attr(755,root,root) %{_libdir}/libhunspell-1.2.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libhunspell-1.2.so.0
+%attr(755,root,root) %{_libdir}/libhunspell-1.3.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libhunspell-1.3.so.0
 %attr(755,root,root) %{_libdir}/libhunspell.so.1
 %{_mandir}/man1/hunzip.1*
 %{_mandir}/man1/hzip.1*
@@ -156,8 +156,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libhunspell-1.2.so
-%{_libdir}/libhunspell-1.2.la
+%attr(755,root,root) %{_libdir}/libhunspell-1.3.so
+%{_libdir}/libhunspell-1.3.la
 %{_libdir}/libparsers.a
 %{_includedir}/hunspell
 %{_pkgconfigdir}/hunspell.pc
@@ -165,4 +165,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libhunspell-1.2.a
+%{_libdir}/libhunspell-1.3.a
