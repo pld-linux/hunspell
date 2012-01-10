@@ -11,7 +11,6 @@ License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/hunspell/%{name}-%{version}.tar.gz
 # Source0-md5:	3121aaf3e13e5d88dfff13fb4a5f1ab8
-Patch0:		%{name}-as-needed.patch
 URL:		http://hunspell.sourceforge.net/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
@@ -96,7 +95,6 @@ Statyczna biblioteka hunspella.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__gettextize}
