@@ -1,20 +1,18 @@
-# TODO:
-# $ LC_ALL=C hunspell -d hu_HU foo
-# Hunspell has been compiled without Ncurses user interface.
 Summary:	Hunspell - a spell checker and morphological analyzer library
 Summary(hu.UTF-8):	Hunspell egy helyesírás-ellenőrző és morfológiai elemző könyvtár és program
 Summary(pl.UTF-8):	hunspell - biblioteka do sprawdzania pisowni i analizy morfologicznej
 Name:		hunspell
-Version:	1.3.2
-Release:	2
+Version:	1.3.3
+Release:	1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/hunspell/%{name}-%{version}.tar.gz
-# Source0-md5:	3121aaf3e13e5d88dfff13fb4a5f1ab8
+# Source0-md5:	4967da60b23413604c9e563beacc63b4
+Patch0:		%{name}-install.patch
 URL:		http://hunspell.sourceforge.net/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-devel >= 0.17
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	ncurses-devel >= 5.0
@@ -95,6 +93,7 @@ Statyczna biblioteka hunspella.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__gettextize}
@@ -136,9 +135,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/hunzip.1*
 %{_mandir}/man1/hzip.1*
 %{_mandir}/man1/hunspell.1*
-%{_mandir}/man4/hunspell.4*
+%{_mandir}/man5/hunspell.5*
 %lang(hu) %{_mandir}/hu/man1/hunspell.1*
-%lang(hu) %{_mandir}/hu/man4/hunspell.4*
+%lang(hu) %{_mandir}/hu/man5/hunspell.5*
 
 %files tools
 %defattr(644,root,root,755)
@@ -156,7 +155,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libhunspell-1.3.so
 %{_libdir}/libhunspell-1.3.la
-%{_libdir}/libparsers.a
 %{_includedir}/hunspell
 %{_pkgconfigdir}/hunspell.pc
 %{_mandir}/man3/hunspell.3*

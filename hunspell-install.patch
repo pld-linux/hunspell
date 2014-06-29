@@ -1,0 +1,9 @@
+--- hunspell-1.3.3/man/hu/Makefile.am.orig	2014-05-28 10:59:11.000000000 +0200
++++ hunspell-1.3.3/man/hu/Makefile.am	2014-06-29 10:01:33.835124410 +0200
+@@ -1,5 +1,5 @@
+ #mandir = $(DESTDIR)/share
+ man1dir = $(mandir)/hu/man1
+-man4dir = $(mandir)/hu/man4
++man5dir = $(mandir)/hu/man5
+ man_MANS = hunspell.1 hunspell.5
+ EXTRA_DIST = $(man_MANS)
