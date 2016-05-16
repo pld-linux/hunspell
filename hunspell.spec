@@ -2,14 +2,15 @@ Summary:	Hunspell - a spell checker and morphological analyzer library
 Summary(hu.UTF-8):	Hunspell egy helyesírás-ellenőrző és morfológiai elemző könyvtár és program
 Summary(pl.UTF-8):	hunspell - biblioteka do sprawdzania pisowni i analizy morfologicznej
 Name:		hunspell
-Version:	1.3.3
-Release:	2
+Version:	1.3.4
+Release:	1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
-Source0:	http://downloads.sourceforge.net/hunspell/%{name}-%{version}.tar.gz
-# Source0-md5:	4967da60b23413604c9e563beacc63b4
+#Source0Download: https://github.com/hunspell/hunspell/releases
+Source0:	https://github.com/hunspell/hunspell/archive/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	423cff69e68c87ac11e4aa8462951954
 Patch0:		%{name}-install.patch
-URL:		http://hunspell.sourceforge.net/
+URL:		http://hunspell.github.io/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 BuildRequires:	gettext-tools >= 0.17
@@ -95,13 +96,17 @@ Statyczna biblioteka hunspella.
 %setup -q
 %patch0 -p1
 
+# stale file in source tarball (even though *.gmo are not included), breaks locale install
+%{__rm} po/stamp-po
+
 %build
 %{__gettextize}
 %{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
+%{__autoheader}
 %{__automake}
-CPPFLAGS="-I/usr/include/ncurses"
+CPPFLAGS="%{rpmcppflags} -I/usr/include/ncurses"
 %configure \
 	--with-ui \
 	--with-readline
@@ -125,7 +130,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS AUTHORS.myspell COPYING ChangeLog NEWS README README.myspell THANKS license.hunspell license.myspell
+%doc AUTHORS AUTHORS.myspell BUGS COPYING ChangeLog NEWS README README.myspell THANKS TODO license.hunspell license.myspell
 %attr(755,root,root) %{_bindir}/hunspell
 %attr(755,root,root) %{_bindir}/hunzip
 %attr(755,root,root) %{_bindir}/hzip
