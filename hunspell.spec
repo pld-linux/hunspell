@@ -2,13 +2,13 @@ Summary:	Hunspell - a spell checker and morphological analyzer library
 Summary(hu.UTF-8):	Hunspell egy helyesírás-ellenőrző és morfológiai elemző könyvtár és program
 Summary(pl.UTF-8):	hunspell - biblioteka do sprawdzania pisowni i analizy morfologicznej
 Name:		hunspell
-Version:	1.3.4
+Version:	1.4.1
 Release:	1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Libraries
 #Source0Download: https://github.com/hunspell/hunspell/releases
 Source0:	https://github.com/hunspell/hunspell/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	423cff69e68c87ac11e4aa8462951954
+# Source0-md5:	33d370f7fe5a030985e445a5672b2067
 Patch0:		%{name}-install.patch
 URL:		http://hunspell.github.io/
 BuildRequires:	autoconf >= 2.59
@@ -18,11 +18,6 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	readline-devel
-%ifarch %{x8664} ia64 ppc64 s390x sparc64
-Provides:	libhunspell.so.1()(64bit)
-%else
-Provides:	libhunspell.so.1
-%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -47,12 +42,12 @@ hunspella to: interfejs terminalowy w stylu Ispella korzystający z
 biblioteki Curses, interfejs potokowy Ispella, moduł UNO
 OpenOffice.org.
 
-# NOTE: munch,unmunch collide with myspell-tools
 %package tools
 Summary:	hunspell tools
 Summary(pl.UTF-8):	Narzędzia hunspella
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Obsoletes:	myspell-tools
 
 %description tools
 This package contains hunspell utilities, including munch and unmunch.
@@ -119,7 +114,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-ln -sf $(basename $RPM_BUILD_ROOT%{_libdir}/libhunspell-1.3.so.*.*.*) $RPM_BUILD_ROOT%{_libdir}/libhunspell.so.1
+# obsoleted by pkg-config
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libhunspell-*.la
+
 %find_lang %{name}
 
 %clean
@@ -134,9 +131,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/hunspell
 %attr(755,root,root) %{_bindir}/hunzip
 %attr(755,root,root) %{_bindir}/hzip
-%attr(755,root,root) %{_libdir}/libhunspell-1.3.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libhunspell-1.3.so.0
-%attr(755,root,root) %{_libdir}/libhunspell.so.1
+%attr(755,root,root) %{_libdir}/libhunspell-1.4.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libhunspell-1.4.so.0
 %{_mandir}/man1/hunzip.1*
 %{_mandir}/man1/hzip.1*
 %{_mandir}/man1/hunspell.1*
@@ -158,12 +154,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libhunspell-1.3.so
-%{_libdir}/libhunspell-1.3.la
+%attr(755,root,root) %{_libdir}/libhunspell-1.4.so
 %{_includedir}/hunspell
 %{_pkgconfigdir}/hunspell.pc
 %{_mandir}/man3/hunspell.3*
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libhunspell-1.3.a
+%{_libdir}/libhunspell-1.4.a
