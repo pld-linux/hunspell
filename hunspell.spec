@@ -3,7 +3,7 @@ Summary(hu.UTF-8):	Hunspell egy helyesírás-ellenőrző és morfológiai elemz�
 Summary(pl.UTF-8):	hunspell - narzędzie do sprawdzania pisowni i analizy morfologicznej
 Name:		hunspell
 Version:	1.7.0
-Release:	1
+Release:	2
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Applications/Text
 #Source0Download: https://github.com/hunspell/hunspell/releases
