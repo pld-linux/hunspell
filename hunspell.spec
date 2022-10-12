@@ -3,7 +3,7 @@ Summary(hu.UTF-8):	Hunspell egy helyesírás-ellenőrző és morfológiai elemz�
 Summary(pl.UTF-8):	hunspell - narzędzie do sprawdzania pisowni i analizy morfologicznej
 Name:		hunspell
 Version:	1.7.1
-Release:	1
+Release:	2
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Applications/Text
 #Source0Download: https://github.com/hunspell/hunspell/releases
@@ -145,6 +145,13 @@ rm -rf $RPM_BUILD_ROOT
 
 # obsoleted by pkg-config
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libhunspell-*.la
+
+# not supported
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/ie
+# unify names
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/{nb_NO,nb}
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/{pt_PT,pt}
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/{zh_Hant,zh_TW}
 
 %find_lang %{name}
 
