@@ -2,13 +2,13 @@ Summary:	Hunspell - a spell checker and morphological analyzer
 Summary(hu.UTF-8):	Hunspell egy helyesírás-ellenőrző és morfológiai elemző könyvtár és program
 Summary(pl.UTF-8):	hunspell - narzędzie do sprawdzania pisowni i analizy morfologicznej
 Name:		hunspell
-Version:	1.7.1
-Release:	3
+Version:	1.7.2
+Release:	1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Applications/Text
 #Source0Download: https://github.com/hunspell/hunspell/releases
 Source0:	https://github.com/hunspell/hunspell/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	b6d5f34ee6cbd1c8687a961e3e6d57e8
+# Source0-md5:	7102d7435f9a89b562dacf7d5be5458e
 Patch0:		%{name}-install.patch
 URL:		http://hunspell.github.io/
 BuildRequires:	autoconf >= 2.59
