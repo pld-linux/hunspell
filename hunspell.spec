@@ -3,7 +3,7 @@ Summary(hu.UTF-8):	Hunspell egy helyesírás-ellenőrző és morfológiai elemz�
 Summary(pl.UTF-8):	hunspell - narzędzie do sprawdzania pisowni i analizy morfologicznej
 Name:		hunspell
 Version:	1.7.2
-Release:	1
+Release:	2
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Applications/Text
 #Source0Download: https://github.com/hunspell/hunspell/releases
@@ -11,11 +11,11 @@ Source0:	https://github.com/hunspell/hunspell/archive/v%{version}/%{name}-%{vers
 # Source0-md5:	7102d7435f9a89b562dacf7d5be5458e
 Patch0:		%{name}-install.patch
 URL:		http://hunspell.github.io/
-BuildRequires:	autoconf >= 2.59
+BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake
-BuildRequires:	gettext-tools >= 0.17
+BuildRequires:	gettext-tools >= 0.18
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtool >= 2:1.5
+BuildRequires:	libtool >= 2:2
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	readline-devel
 Requires:	%{name}-libs = %{version}-%{release}
@@ -148,10 +148,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # not supported
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/ie
-# almost a copy of pt (one word difference as of 1.7.1)
+# almost a copy of pt (one word difference as of 1.7.2)
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/pt_PT
 # unify names
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/{nb_NO,nb}
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/{zh_Hans,zh_CN}
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/{zh_Hant,zh_TW}
 
 %find_lang %{name}
