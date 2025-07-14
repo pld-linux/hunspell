@@ -118,7 +118,7 @@ Statyczna biblioteka hunspella.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P0 -p1
 
 # stale file in source tarball (even though *.gmo are not included), breaks locale install
 %{__rm} po/stamp-po
