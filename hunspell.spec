@@ -2,18 +2,18 @@ Summary:	Hunspell - a spell checker and morphological analyzer
 Summary(hu.UTF-8):	Hunspell egy helyesírás-ellenőrző és morfológiai elemző könyvtár és program
 Summary(pl.UTF-8):	hunspell - narzędzie do sprawdzania pisowni i analizy morfologicznej
 Name:		hunspell
-Version:	1.7.2
-Release:	2
+Version:	1.7.3
+Release:	1
 License:	MPL v1.1 or GPL v2+ or LGPL v2.1+
 Group:		Applications/Text
 #Source0Download: https://github.com/hunspell/hunspell/releases
 Source0:	https://github.com/hunspell/hunspell/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	7102d7435f9a89b562dacf7d5be5458e
+# Source0-md5:	2f8b9092e2aaadc3d8f2750d35f838d9
 Patch0:		%{name}-install.patch
 URL:		http://hunspell.github.io/
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake
-BuildRequires:	gettext-tools >= 0.18
+BuildRequires:	gettext-tools >= 0.20
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:2
 BuildRequires:	ncurses-devel >= 5.0
@@ -190,12 +190,12 @@ rm -rf $RPM_BUILD_ROOT
 %files libs
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README.md THANKS license.hunspell license.myspell
-%attr(755,root,root) %{_libdir}/libhunspell-1.7.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libhunspell-1.7.so.0
+%{_libdir}/libhunspell-1.7.so.*.*.*
+%ghost %{_libdir}/libhunspell-1.7.so.0
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libhunspell-1.7.so
+%{_libdir}/libhunspell-1.7.so
 %{_includedir}/hunspell
 %{_pkgconfigdir}/hunspell.pc
 %{_mandir}/man3/hunspell.3*
