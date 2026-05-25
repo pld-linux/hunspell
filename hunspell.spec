@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_without	static_libs	# static library
+
 Summary:	Hunspell - a spell checker and morphological analyzer
 Summary(hu.UTF-8):	Hunspell egy helyesírás-ellenőrző és morfológiai elemző könyvtár és program
 Summary(pl.UTF-8):	hunspell - narzędzie do sprawdzania pisowni i analizy morfologicznej
@@ -18,6 +22,7 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:2
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	readline-devel
+BuildRequires:	rpmbuild(macros) >= 1.527
 Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -132,6 +137,7 @@ Statyczna biblioteka hunspella.
 %{__automake}
 CPPFLAGS="%{rpmcppflags} -I/usr/include/ncurses"
 %configure \
+	%{__enable_disable static_libs static} \
 	--with-readline \
 	--with-ui
 
@@ -200,6 +206,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/hunspell.pc
 %{_mandir}/man3/hunspell.3*
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libhunspell-1.7.a
+%endif
